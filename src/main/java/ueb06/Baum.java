@@ -50,7 +50,28 @@ class Baum<T extends Comparable<T>> {
 	 *  Wie `add`, aber rekursiv zu implementieren.
 	 */
 	void addRek(T value) {
-		throw new UnsupportedOperationException();
+		if(root == null)
+			root = new Element(value);
+		else
+			addRekH(value, root);
+	}
+
+	void addRekH(T value, Element pos){
+		if(value.compareTo(pos.value) > 0){
+			if(pos.right == null)
+				pos.right = new Element(value);
+			else {
+				addRekH(value, pos.right);
+				return;
+			}
+		} else {
+			if(pos.left == null)
+				pos.left = new Element(value);
+			else {
+				addRekH(value, pos.left);
+				return;
+			}
+		}
 	}
 
 	/**
@@ -78,7 +99,18 @@ class Baum<T extends Comparable<T>> {
 	 * Wie `contains`, aber rekursiv zu implementieren.
 	 */
 	boolean containsRek(T value) {
-		throw new UnsupportedOperationException();
+		return containsH(value, root);
+	}
+
+	boolean containsH(T value, Element pos){
+		if(pos.value.equals(value))
+			return true;
+		else if(pos.value.compareTo(value) > 0 && pos.right != null)
+			return containsH(value, pos.right);
+		else if(pos.value.compareTo(value) < 0 && pos.left != null)
+			return containsH(value, pos.left);
+		else
+			return false;
 	}
 
 	/**

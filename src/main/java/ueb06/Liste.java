@@ -29,7 +29,20 @@ class Liste<T> {
 	 * Wie `add`, aber rekursiv zu implementieren.
 	 */
 	void addRek(T value) {
-		throw new UnsupportedOperationException();
+		if(first == null) {
+			first = new Element(value);
+			return;
+		}
+
+		Element pos = first;
+		addRekH(value, pos);
+	}
+
+	void addRekH(T value, Element pos){
+		if(pos.next == null)
+			pos.next = new Element(value);
+		else
+			addRekH(value, pos.next);
 	}
 
 	/**
@@ -53,9 +66,17 @@ class Liste<T> {
 	 * Wie `contains`, nur rekursiv zu implementieren.
 	 */
 	boolean containsRek(T value) {
-		throw new UnsupportedOperationException();
+		return containsH(value, first);
 	}
 
+	boolean containsH(T value, Element pos){
+		if(pos.value.equals(value))
+			return true;
+		else if(pos.next != null)
+			return containsH(value, pos.next);
+		else
+			return false;
+	}
 	/**
 	 * Gibt eine Stringrepraesentation der Liste zurück, z.B. [] oder [1, 2, 3]
 	 */
@@ -63,7 +84,7 @@ class Liste<T> {
 		if (first == null)
 			return "[]";
 
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("[");
 		sb.append(first.value);
 
 		Element it = first.next;
@@ -71,7 +92,7 @@ class Liste<T> {
 			sb.append(", ").append(it.value);
 			it = it.next;
 		}
-
+		sb.append("]");
 		return sb.toString();
 	}
 
