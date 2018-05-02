@@ -154,6 +154,24 @@ class Baum<T extends Comparable<T>> {
 	 * Zusatzaufgabe: Wie `toString`, nur rekursiv zu implementieren.
 	 */
 	String toStringRek() {
-		throw new UnsupportedOperationException();
+		if(root == null)
+			return "[]";
+		else
+			return "[" + toSringRekH(root) + "]";
+	}
+
+	String toSringRekH(Element e){
+		StringBuilder sb = new StringBuilder();
+		if(e.left == null && e.right == null)
+			sb.append(e.value);
+		else
+			sb.append(e.value +", ");
+		if(e.left != null){
+			sb.append(toSringRekH(e.left));
+		}
+		if(e.right != null){
+			sb.append(toSringRekH(e.right));
+		}
+		return sb.toString();
 	}
 }

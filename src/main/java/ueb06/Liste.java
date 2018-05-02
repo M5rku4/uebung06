@@ -100,6 +100,20 @@ class Liste<T> {
 	 * Zusatzaufgabe: Wie `toString`, nur rekursiv zu implementieren.
 	 */
 	String toStringRek() {
-		throw new UnsupportedOperationException();
+		if(first == null)
+			return "[]";
+		else
+			return "[" + toStringRekH(first) + "]";
+	}
+
+	String toStringRekH(Element toAdd){
+		StringBuilder sb = new StringBuilder();
+		if(toAdd.next == null)
+			sb.append(toAdd.value.toString());
+		else
+			sb.append(toAdd.value.toString() + ", ");
+		if(toAdd.next != null)
+			sb.append(toStringRekH(toAdd.next));
+		return sb.toString();
 	}
 }
